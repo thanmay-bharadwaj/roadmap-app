@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Progress {
+  id        Int      @id @default(autoincrement())
+  itemId    String   @unique
+  completed Boolean
+  createdAt DateTime @default(now())
+}
