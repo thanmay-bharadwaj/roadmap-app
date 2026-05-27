@@ -15,10 +15,10 @@
       <button @click="expandAll">Expand All</button>
       <button @click="collapseAll">Collapse All</button>
       <button @click="exportProgress">Export</button>
-      <button @click="triggerImport">Import</button>
+      <!-- <button @click="triggerImport">Import</button> -->
       <button class="danger" @click="resetAll">Reset</button>
       <!-- ✅ DEBUG BUTTON -->
-      <button @click="testApi" style="border-color: var(--cyan); color: var(--cyan)">Test API</button>
+      <!-- <button @click="testApi" style="border-color: var(--cyan); color: var(--cyan)">Test API</button> -->
     </div>
 
     <div v-if="loading" style="text-align:center;padding:20px;color:var(--text-dim)">Loading progress...</div>
