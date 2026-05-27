@@ -36,7 +36,7 @@
       />
     </div>
 
-    <input type="file" ref="fileInputRef" accept=".json" style="display:none" @change="handleFileImport" />
+    <!-- <input type="file" ref="fileInputRef" accept=".json" style="display:none" @change="handleFileImport" /> -->
   </div>
 </template>
 
@@ -75,25 +75,25 @@ const resetAll = async () => {
   await resetAllProgress()
 }
 
-const triggerImport = () => fileInputRef.value?.click()
-const handleFileImport = async (e: Event) => {
-  const file = (e.target as HTMLInputElement).files?.[0]
-  if (file) {
-    try { await importProgress(file); alert('Imported!') }
-    catch (err) { alert('Import failed') }
-  }
-}
+// const triggerImport = () => fileInputRef.value?.click()
+// const handleFileImport = async (e: Event) => {
+//   const file = (e.target as HTMLInputElement).files?.[0]
+//   if (file) {
+//     try { await importProgress(file); alert('Imported!') }
+//     catch (err) { alert('Import failed') }
+//   }
+// }
 
 // ✅ DEBUG: Direct API test
-const testApi = async () => {
-  console.log('[APP] Testing direct API call...')
-  try {
-    const res = await roadmapApi.getAllProgress()
-    console.log('[APP] API Success! Items:', res.length)
-    alert(`API Works! Fetched ${res.length} progress records.`)
-  } catch (err) {
-    console.error('[APP] API Failed:', err)
-    alert('API FAILED! Check console for details.')
-  }
-}
+// const testApi = async () => {
+//   console.log('[APP] Testing direct API call...')
+//   try {
+//     const res = await roadmapApi.getAllProgress()
+//     console.log('[APP] API Success! Items:', res.length)
+//     alert(`API Works! Fetched ${res.length} progress records.`)
+//   } catch (err) {
+//     console.error('[APP] API Failed:', err)
+//     alert('API FAILED! Check console for details.')
+//   }
+// }
 </script>
