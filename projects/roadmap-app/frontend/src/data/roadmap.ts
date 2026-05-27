@@ -1,28 +1,11 @@
-export interface RoadmapItem {
-  name: string
-  badge: string
-  items: string[]
-  resources?: string
-}
-
-export interface RoadmapPhase {
-  phase: number
-  title: string
-  weeks: string
-  icon: string
-  sections: RoadmapItem[]
-}
+import type { RoadmapPhase } from '@/types'
 
 export const roadmap: RoadmapPhase[] = [
   {
-    phase: 1,
-    title: 'Foundations',
-    weeks: '1 – 4',
-    icon: '🧱',
+    phase: 1, title: 'Foundations', weeks: '1 – 4', icon: '🧱',
     sections: [
       {
-        name: 'TypeScript',
-        badge: 'bg-accent',
+        name: 'TypeScript', badge: 'bg-accent',
         items: [
           'Types, interfaces, generics, enums',
           'Utility types: Partial, Pick, Omit, Record, Readonly',
@@ -33,8 +16,7 @@ export const roadmap: RoadmapPhase[] = [
         resources: '<a href="https://www.typescriptlang.org/docs/handbook/intro.html" target="_blank">TypeScript Handbook</a> · <a href="https://www.totaltypescript.com/tutorials" target="_blank">Total TypeScript</a>'
       },
       {
-        name: 'Node.js',
-        badge: 'bg-accent',
+        name: 'Node.js', badge: 'bg-accent',
         items: [
           'Event loop, async/await, Promises',
           'Streams, Buffer, fs, path, http modules',
@@ -46,14 +28,10 @@ export const roadmap: RoadmapPhase[] = [
     ]
   },
   {
-    phase: 2,
-    title: 'Backend Development',
-    weeks: '5 – 10',
-    icon: '⚙️',
+    phase: 2, title: 'Backend Development', weeks: '5 – 10', icon: '⚙️',
     sections: [
       {
-        name: 'Express / Fastify + TypeScript',
-        badge: 'bg-cyan',
+        name: 'Express / Fastify + TypeScript', badge: 'bg-cyan',
         items: [
           'REST API design (resource naming, status codes, versioning)',
           'Middleware pattern (auth, logging, error handling, validation)',
@@ -63,8 +41,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'TypeORM + PostgreSQL',
-        badge: 'bg-cyan',
+        name: 'TypeORM + PostgreSQL', badge: 'bg-cyan',
         items: [
           'Entities, decorators (@Entity, @Column, @PrimaryGeneratedColumn)',
           'Relations: @OneToMany, @ManyToOne, @ManyToMany, @OneToOne',
@@ -76,8 +53,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'MongoDB',
-        badge: 'bg-cyan',
+        name: 'MongoDB', badge: 'bg-cyan',
         items: [
           'Document modeling, embedding vs referencing',
           'Indexes, aggregation pipeline',
@@ -86,8 +62,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'PostgreSQL Deep Dive',
-        badge: 'bg-cyan',
+        name: 'PostgreSQL Deep Dive', badge: 'bg-cyan',
         items: [
           'Joins, CTEs, window functions',
           'Indexes (B-tree, GIN, partial)',
@@ -98,14 +73,10 @@ export const roadmap: RoadmapPhase[] = [
     ]
   },
   {
-    phase: 3,
-    title: 'Frontend — Vue.js',
-    weeks: '11 – 16',
-    icon: '🖥️',
+    phase: 3, title: 'Frontend — Vue.js', weeks: '11 – 16', icon: '🖥️',
     sections: [
       {
-        name: 'Vue.js 3 + TypeScript',
-        badge: 'bg-green',
+        name: 'Vue.js 3 + TypeScript', badge: 'bg-green',
         items: [
           'Composition API (setup, ref, reactive, computed, watch)',
           'defineProps, defineEmits, defineExpose',
@@ -118,8 +89,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'API Integration',
-        badge: 'bg-green',
+        name: 'API Integration', badge: 'bg-green',
         items: [
           'Axios interceptors for auth headers + token refresh',
           'Error boundary patterns',
@@ -128,8 +98,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'Build Tooling',
-        badge: 'bg-green',
+        name: 'Build Tooling', badge: 'bg-green',
         items: [
           'Vite config, aliases, env variables',
           'Code splitting, lazy routes',
@@ -139,14 +108,10 @@ export const roadmap: RoadmapPhase[] = [
     ]
   },
   {
-    phase: 4,
-    title: 'AWS Core Services',
-    weeks: '17 – 22',
-    icon: '☁️',
+    phase: 4, title: 'AWS Core Services', weeks: '17 – 22', icon: '☁️',
     sections: [
       {
-        name: 'IAM (Learn First)',
-        badge: 'bg-yellow',
+        name: 'IAM (Learn First)', badge: 'bg-yellow',
         items: [
           'Users, Groups, Roles, Policies',
           'Least-privilege principle',
@@ -157,8 +122,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'EC2',
-        badge: 'bg-yellow',
+        name: 'EC2', badge: 'bg-yellow',
         items: [
           'Launch instance, security groups, key pairs',
           'AMIs, user data scripts',
@@ -170,8 +134,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'Lambda',
-        badge: 'bg-yellow',
+        name: 'Lambda', badge: 'bg-yellow',
         items: [
           'Function anatomy, handler, context, event',
           'Layers (shared deps, TypeScript compilation)',
@@ -185,8 +148,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'Networking',
-        badge: 'bg-yellow',
+        name: 'Networking', badge: 'bg-yellow',
         items: [
           'VPC, subnets (public/private), route tables',
           'Internet Gateway, NAT Gateway',
@@ -195,8 +157,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'Other AWS Services',
-        badge: 'bg-yellow',
+        name: 'Other AWS Services', badge: 'bg-yellow',
         items: [
           'RDS — PostgreSQL, parameter groups, Multi-AZ, read replicas',
           'DocumentDB (MongoDB-compatible) or Atlas on AWS',
@@ -215,14 +176,10 @@ export const roadmap: RoadmapPhase[] = [
     ]
   },
   {
-    phase: 5,
-    title: 'DevOps & Deployment',
-    weeks: '23 – 28',
-    icon: '🚀',
+    phase: 5, title: 'DevOps & Deployment', weeks: '23 – 28', icon: '🚀',
     sections: [
       {
-        name: 'Docker',
-        badge: 'bg-orange',
+        name: 'Docker', badge: 'bg-orange',
         items: [
           'Dockerfile for Node.js (multi-stage builds)',
           'docker-compose for local dev (Node + Postgres + Mongo)',
@@ -231,8 +188,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'CI/CD',
-        badge: 'bg-orange',
+        name: 'CI/CD', badge: 'bg-orange',
         items: [
           'GitHub Actions — build, test, deploy pipeline',
           'OIDC-based AWS auth (no long-lived keys)',
@@ -242,8 +198,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'Infrastructure as Code',
-        badge: 'bg-orange',
+        name: 'Infrastructure as Code', badge: 'bg-orange',
         items: [
           'AWS CDK (TypeScript) — preferred for TS developers',
           'Core constructs: Stack, Construct, App',
@@ -251,8 +206,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'Monitoring',
-        badge: 'bg-orange',
+        name: 'Monitoring', badge: 'bg-orange',
         items: [
           'Structured logging (pino, winston) → CloudWatch',
           'X-Ray tracing on Lambda + API Gateway',
@@ -262,14 +216,10 @@ export const roadmap: RoadmapPhase[] = [
     ]
   },
   {
-    phase: 6,
-    title: 'Security & Production',
-    weeks: '29 – 32',
-    icon: '🔒',
+    phase: 6, title: 'Security & Production', weeks: '29 – 32', icon: '🔒',
     sections: [
       {
-        name: 'Application Security',
-        badge: 'bg-red',
+        name: 'Application Security', badge: 'bg-red',
         items: [
           'OWASP Top 10 (SQL injection, XSS, CSRF, IDOR)',
           'Input sanitization at API boundary',
@@ -284,14 +234,10 @@ export const roadmap: RoadmapPhase[] = [
     ]
   },
   {
-    phase: 7,
-    title: 'System Design & Practice',
-    weeks: 'Ongoing',
-    icon: '🎯',
+    phase: 7, title: 'System Design & Practice', weeks: 'Ongoing', icon: '🎯',
     sections: [
       {
-        name: 'Design Patterns',
-        badge: 'bg-pink',
+        name: 'Design Patterns', badge: 'bg-pink',
         items: [
           'Auth flows: OAuth2, PKCE, refresh token rotation',
           'Caching: Redis (ElastiCache), CDN edge caching, query caching',
@@ -304,8 +250,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'Practice Projects',
-        badge: 'bg-pink',
+        name: 'Practice Projects', badge: 'bg-pink',
         items: [
           'Auth service — Node + TS + TypeORM + Postgres + JWT',
           'File manager — S3 presigned URLs + Mongo metadata + Vue 3 UI',
@@ -314,8 +259,7 @@ export const roadmap: RoadmapPhase[] = [
         ]
       },
       {
-        name: 'Certifications (optional)',
-        badge: 'bg-pink',
+        name: 'Certifications (optional)', badge: 'bg-pink',
         items: [
           'AWS SAA-C03 (Solutions Architect Associate) — High priority',
           'AWS DVA-C02 (Developer Associate) — High priority',
