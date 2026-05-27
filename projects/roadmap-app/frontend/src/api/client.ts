@@ -19,7 +19,7 @@ const api: AxiosInstance = axios.create({
 api.interceptors.response.use(
   response => response,
   error => {
-    //console.error('API Error:', {
+    console.error('API Error:', {
       url: error.config?.url,
       status: error.response?.status,
       message: error.message
