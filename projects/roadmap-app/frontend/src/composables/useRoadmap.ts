@@ -1,10 +1,9 @@
 import { ref, computed, reactive, onMounted } from 'vue'
 import { roadmapApi } from '@/api/client'
-import type { RoadmapPhase, ProgressState, Progress } from '@/types'
+import type { RoadmapPhase, ProgressState } from '@/types'
 import { roadmap } from '@/data/roadmap'
 
 export function useRoadmap() {
-  // ✅ Use reactive object for reliable property mutation
   const progressState = reactive<ProgressState>({})
   const loading = ref(false)
   const error = ref<string | null>(null)
@@ -44,7 +43,7 @@ export function useRoadmap() {
     loading.value = true
     error.value = null
     try {
-      console.log('[useRoadmap] Fetching progress from backend...')
+      console.log('[useRoadmap] Fetching progress...')
       const progressItems = await roadmapApi.getAllProgress()
       console.log(`[useRoadmap] Loaded ${progressItems.length} items`)
       
@@ -53,7 +52,7 @@ export function useRoadmap() {
       })
     } catch (err) {
       console.error('[useRoadmap] Failed to load progress:', err)
-      error.value = 'Failed to load progress'
+      error.value = 'Failed to load progress from server'
     } finally {
       loading.value = false
     }
@@ -61,7 +60,7 @@ export function useRoadmap() {
 
   const saveItemProgress = async (itemId: string, completed: boolean): Promise<boolean> => {
     try {
-      console.log(`[useRoadmap] Saving progress: ${itemId} = ${completed}`)
+      console.log(`[useRoadmap] Saving: ${itemId} = ${completed}`)
       await roadmapApi.saveProgress(itemId, completed)
       return true
     } catch (err) {
@@ -70,15 +69,14 @@ export function useRoadmap() {
     }
   }
 
-  // ✅ Toggle logic with guaranteed reactivity
   const toggleItem = async (itemId: string, current: boolean) => {
-    console.log(`[useRoadmap] toggleItem called for: ${itemId} (current: ${current})`)
+    console.log(`[useRoadmap] Toggle: ${itemId} (current: ${current})`)
     const newStatus = !current
-    progressState[itemId] = newStatus // reactive object handles this safely
+    progressState[itemId] = newStatus
     
     const success = await saveItemProgress(itemId, newStatus)
     if (!success) {
-      progressState[itemId] = current // revert on failure
+      progressState[itemId] = current
     }
     return success
   }
@@ -105,7 +103,7 @@ export function useRoadmap() {
       Object.assign(progressState, data.state)
       return true
     }
-    throw new Error('Invalid file')
+    throw new Error('Invalid file format')
   }
 
   onMounted(() => loadProgress())

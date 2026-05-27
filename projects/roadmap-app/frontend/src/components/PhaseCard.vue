@@ -47,7 +47,8 @@ import { ref } from 'vue'
 import RoadmapItem from './RoadmapItem.vue'
 import type { RoadmapPhase, ProgressState } from '@/types'
 
-const props = defineProps<{
+// ✅ Vue automatically exposes these to the template. No assignment needed.
+defineProps<{
   phase: RoadmapPhase
   progressState: ProgressState
   phaseProgress: number
