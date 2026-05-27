@@ -22,8 +22,9 @@ const emit = defineEmits<{
 }>()
 
 const handleChange = (event: Event) => {
-  const checked = (event.target as HTMLInputElement).checked
-  // Emit the itemId and the current (pre-toggle) state
-  emit('toggle', props.itemId, !checked)
+  const isChecked = (event.target as HTMLInputElement).checked
+  console.log(`[RoadmapItem] Checkbox changed: ${props.itemId} -> ${isChecked}`)
+  // Emit the PREVIOUS state so parent can flip it
+  emit('toggle', props.itemId, !isChecked)
 }
 </script>

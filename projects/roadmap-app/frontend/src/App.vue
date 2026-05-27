@@ -5,20 +5,26 @@
       <p>TypeScript · TypeORM · Vue.js · Node.js · MongoDB · PostgreSQL · AWS</p>
     </header>
 
-    <OverallProgress :overall-progress="overallProgress" />
+    <div class="overall-progress">
+      <span class="label">Overall Progress</span>
+      <div class="bar-wrap"><div class="bar-outer"><div class="bar-inner" :style="{ width: overallProgress + '%' }"></div></div></div>
+      <span class="pct">{{ overallProgress }}%</span>
+    </div>
 
     <div class="controls">
       <button @click="expandAll">Expand All</button>
       <button @click="collapseAll">Collapse All</button>
-      <button @click="exportProgress">Export Progress</button>
-      <button @click="triggerImport">Import Progress</button>
-      <button class="danger" @click="resetAll">Reset All</button>
+      <button @click="exportProgress">Export</button>
+      <button @click="triggerImport">Import</button>
+      <button class="danger" @click="resetAll">Reset</button>
+      <!-- ✅ DEBUG BUTTON -->
+      <button @click="testApi" style="border-color: var(--cyan); color: var(--cyan)">Test API</button>
     </div>
 
-    <div v-if="loading" class="loading">Loading progress...</div>
-    <div v-if="error" class="error">{{ error }}</div>
+    <div v-if="loading" style="text-align:center;padding:20px;color:var(--text-dim)">Loading progress...</div>
+    <div v-if="error" style="text-align:center;padding:20px;color:var(--red)">{{ error }}</div>
 
-    <div class="timeline" ref="timelineRef">
+    <div class="timeline">
       <PhaseCard
         v-for="phase in roadmap"
         :key="phase.phase"
@@ -30,23 +36,15 @@
       />
     </div>
 
-    <div v-if="toastMessage" class="toast show">{{ toastMessage }}</div>
-
-    <input 
-      type="file" 
-      ref="fileInputRef" 
-      accept=".json" 
-      style="display: none" 
-      @change="handleFileImport"
-    />
+    <input type="file" ref="fileInputRef" accept=".json" style="display:none" @change="handleFileImport" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import OverallProgress from './components/OverallProgress.vue'
+import { ref } from 'vue'
 import PhaseCard from './components/PhaseCard.vue'
 import { useRoadmap } from './composables/useRoadmap'
+import { roadmapApi } from './api/client'
 
 const {
   roadmap,
@@ -57,98 +55,45 @@ const {
   calculatePhaseProgress,
   toggleItem,
   resetAllProgress,
-  exportProgress: exportProgressData,
-  importProgress: importProgressData
+  exportProgress,
+  importProgress
 } = useRoadmap()
 
-const timelineRef = ref<HTMLElement | null>(null)
 const fileInputRef = ref<HTMLInputElement | null>(null)
 const phaseRefs = ref<Record<number, any>>({})
-const toastMessage = ref<string>('')
 
-// Expand/Collapse all phases
-const expandAll = () => {
-  Object.values(phaseRefs.value).forEach((phase: any) => {
-    if (phase?.$el) {
-      phase.$el.classList.add('open')
-    }
-  })
-}
+const expandAll = () => Object.values(phaseRefs.value).forEach((p: any) => p?.$el.classList.add('open'))
+const collapseAll = () => Object.values(phaseRefs.value).forEach((p: any) => p?.$el.classList.remove('open'))
 
-const collapseAll = () => {
-  Object.values(phaseRefs.value).forEach((phase: any) => {
-    if (phase?.$el) {
-      phase.$el.classList.remove('open')
-    }
-  })
-}
-
-// Handle item toggle
 const handleToggle = async (itemId: string, current: boolean) => {
+  console.log(`[App] Toggle received: ${itemId} (current: ${current})`)
   await toggleItem(itemId, current)
-  showToast('Progress saved')
 }
 
-// Export progress
-const exportProgress = () => {
-  exportProgressData()
-  showToast('Progress exported')
-}
-
-// Trigger file import
-const triggerImport = () => {
-  fileInputRef.value?.click()
-}
-
-// Handle imported file
-const handleFileImport = async (event: Event) => {
-  const input = event.target as HTMLInputElement
-  const file = input.files?.[0]
-  
-  if (!file) return
-  
-  try {
-    await importProgressData(file)
-    showToast('Progress imported')
-  } catch (err) {
-    showToast('Failed to import file')
-    console.error(err)
-  }
-  
-  // Reset input
-  input.value = ''
-}
-
-// Reset all progress
 const resetAll = async () => {
-  if (!confirm('Reset all progress? This cannot be undone.')) return
-  
+  if (!confirm('Reset all progress?')) return
   await resetAllProgress()
-  showToast('Progress reset')
 }
 
-// Show toast notification
-const showToast = (message: string) => {
-  toastMessage.value = message
-  setTimeout(() => {
-    toastMessage.value = ''
-  }, 2000)
+const triggerImport = () => fileInputRef.value?.click()
+const handleFileImport = async (e: Event) => {
+  const file = (e.target as HTMLInputElement).files?.[0]
+  if (file) {
+    try { await importProgress(file); alert('Imported!') }
+    catch (err) { alert('Import failed') }
+  }
+}
+
+// ✅ DEBUG: Direct API test
+const testApi = async () => {
+  console.log('[APP] Testing direct API call...')
+  try {
+    const res = await roadmapApi.getAllProgress()
+    console.log('[APP] API Success! Items:', res.length)
+    alert(`API Works! Fetched ${res.length} progress records.`)
+  } catch (err) {
+    console.error('[APP] API Failed:', err)
+    alert('API FAILED! Check console for details.')
+  }
 }
 </script>
-
-<style scoped>
-.app {
-  min-height: 100vh;
-}
-
-.loading,
-.error {
-  text-align: center;
-  padding: 20px;
-  color: var(--text-dim);
-}
-
-.error {
-  color: var(--red);
-}
-</style>
