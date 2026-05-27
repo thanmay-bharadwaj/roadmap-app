@@ -15,10 +15,10 @@
       <button @click="expandAll">Expand All</button>
       <button @click="collapseAll">Collapse All</button>
       <button @click="exportProgress">Export</button>
-      <!-- <button @click="triggerImport">Import</button> -->
+      <button @click="triggerImport">Import</button>
       <button class="danger" @click="resetAll">Reset</button>
       <!-- ✅ DEBUG BUTTON -->
-      <!-- <button @click="testApi" style="border-color: var(--cyan); color: var(--cyan)">Test API</button> -->
+      <button @click="testApi" style="border-color: var(--cyan); color: var(--cyan)">Test API</button>
     </div>
 
     <div v-if="loading" style="text-align:center;padding:20px;color:var(--text-dim)">Loading progress...</div>
@@ -36,7 +36,7 @@
       />
     </div>
 
-    <!-- <input type="file" ref="fileInputRef" accept=".json" style="display:none" @change="handleFileImport" /> -->
+    <input type="file" ref="fileInputRef" accept=".json" style="display:none" @change="handleFileImport" />
   </div>
 </template>
 
@@ -66,7 +66,7 @@ const expandAll = () => Object.values(phaseRefs.value).forEach((p: any) => p?.$e
 const collapseAll = () => Object.values(phaseRefs.value).forEach((p: any) => p?.$el.classList.remove('open'))
 
 const handleToggle = async (itemId: string, current: boolean) => {
-  console.log(`[App] Toggle received: ${itemId} (current: ${current})`)
+  //console.log(`[App] Toggle received: ${itemId} (current: ${current})`)
   await toggleItem(itemId, current)
 }
 
@@ -75,25 +75,25 @@ const resetAll = async () => {
   await resetAllProgress()
 }
 
-// const triggerImport = () => fileInputRef.value?.click()
-// const handleFileImport = async (e: Event) => {
-//   const file = (e.target as HTMLInputElement).files?.[0]
-//   if (file) {
-//     try { await importProgress(file); alert('Imported!') }
-//     catch (err) { alert('Import failed') }
-//   }
-// }
+const triggerImport = () => fileInputRef.value?.click()
+const handleFileImport = async (e: Event) => {
+  const file = (e.target as HTMLInputElement).files?.[0]
+  if (file) {
+    try { await importProgress(file); alert('Imported!') }
+    catch (err) { alert('Import failed') }
+  }
+}
 
 // ✅ DEBUG: Direct API test
-// const testApi = async () => {
-//   console.log('[APP] Testing direct API call...')
-//   try {
-//     const res = await roadmapApi.getAllProgress()
-//     console.log('[APP] API Success! Items:', res.length)
-//     alert(`API Works! Fetched ${res.length} progress records.`)
-//   } catch (err) {
-//     console.error('[APP] API Failed:', err)
-//     alert('API FAILED! Check console for details.')
-//   }
-// }
+const testApi = async () => {
+  //console.log('[APP] Testing direct API call...')
+  try {
+    const res = await roadmapApi.getAllProgress()
+    //console.log('[APP] API Success! Items:', res.length)
+    alert(`API Works! Fetched ${res.length} progress records.`)
+  } catch (err) {
+    //console.error('[APP] API Failed:', err)
+    alert('API FAILED! Check //console for details.')
+  }
+}
 </script>

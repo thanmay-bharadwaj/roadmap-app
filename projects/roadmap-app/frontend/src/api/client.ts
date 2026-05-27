@@ -19,7 +19,7 @@ const api: AxiosInstance = axios.create({
 api.interceptors.response.use(
   response => response,
   error => {
-    console.error('API Error:', {
+    //console.error('API Error:', {
       url: error.config?.url,
       status: error.response?.status,
       message: error.message
@@ -34,7 +34,7 @@ export const roadmapApi = {
       const response = await api.get<Progress[]>('/progress')
       return response.data
     } catch (error) {
-      console.error('Failed to fetch progress:', error)
+      //console.error('Failed to fetch progress:', error)
       throw error
     }
   },
@@ -44,7 +44,7 @@ export const roadmapApi = {
       const response = await api.post<Progress>('/progress', { itemId, completed })
       return response.data
     } catch (error) {
-      console.error('Failed to save progress:', error)
+      //console.error('Failed to save progress:', error)
       throw error
     }
   },

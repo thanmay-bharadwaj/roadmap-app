@@ -43,15 +43,15 @@ export function useRoadmap() {
     loading.value = true
     error.value = null
     try {
-      console.log('[useRoadmap] Fetching progress...')
+      //console.log('[useRoadmap] Fetching progress...')
       const progressItems = await roadmapApi.getAllProgress()
-      console.log(`[useRoadmap] Loaded ${progressItems.length} items`)
+      //console.log(`[useRoadmap] Loaded ${progressItems.length} items`)
       
       progressItems.forEach(item => {
         if (item.completed) progressState[item.itemId] = true
       })
     } catch (err) {
-      console.error('[useRoadmap] Failed to load progress:', err)
+      //console.error('[useRoadmap] Failed to load progress:', err)
       error.value = 'Failed to load progress from server'
     } finally {
       loading.value = false
@@ -60,17 +60,17 @@ export function useRoadmap() {
 
   const saveItemProgress = async (itemId: string, completed: boolean): Promise<boolean> => {
     try {
-      console.log(`[useRoadmap] Saving: ${itemId} = ${completed}`)
+      //console.log(`[useRoadmap] Saving: ${itemId} = ${completed}`)
       await roadmapApi.saveProgress(itemId, completed)
       return true
     } catch (err) {
-      console.error('[useRoadmap] Save failed:', err)
+      //console.error('[useRoadmap] Save failed:', err)
       return false
     }
   }
 
   const toggleItem = async (itemId: string, current: boolean) => {
-    console.log(`[useRoadmap] Toggle: ${itemId} (current: ${current})`)
+    //console.log(`[useRoadmap] Toggle: ${itemId} (current: ${current})`)
     const newStatus = !current
     progressState[itemId] = newStatus
     

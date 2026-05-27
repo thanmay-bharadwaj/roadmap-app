@@ -61,7 +61,7 @@ const emit = defineEmits<{
 const isOpen = ref(false)
 
 const handleToggle = (itemId: string, current: boolean) => {
-  console.log(`[PhaseCard] Forwarding toggle: ${itemId}`)
+  //console.log(`[PhaseCard] Forwarding toggle: ${itemId}`)
   emit('toggle', itemId, current)
 }
 </script>
